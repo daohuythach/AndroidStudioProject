@@ -2,6 +2,7 @@ package com.dh.thach.financialstatement.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import org.jetbrains.annotations.*;
@@ -68,5 +69,67 @@ public class FinancialDBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_TYPE, type);
         long newId = db.insert(TABLE_NAME, null, contentValues);
         return newId;
+    }
+
+    public Cursor getAllContent(){
+         SQLiteDatabase db = this.getReadableDatabase();
+         String sql = "SELECT * FROM " + TABLE_NAME;
+         Cursor res = db.rawQuery(sql,null);
+         return res;
+    }
+    public Cursor getDataWithCondition(String selection, String[] selectionArgs){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        String[] projection = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_COST,
+                COLUMN_CASH_FLOW,
+                COLUMN_DOWN_FLOW,
+                COLUMN_SHARES_OWNED,
+                COLUMN_TYPE,
+        };
+
+//// Filter results WHERE "title" = 'My Title'
+//        String selection = FeedEntry.COLUMN_NAME_TITLE + " = ?";
+//        String[] selectionArgs = { "My Title" };
+
+// How you want the results sorted in the resulting Cursor
+        String sortOrder =
+                COLUMN_ID + " DESC";
+
+        Cursor cursor = db.query(
+                TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                sortOrder               // The sort order
+        );
+        return cursor;
+    }
+
+    public int updateData(String selection, String[] selectionArgs, ContentValues contentValues){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// New value for one column
+//        String title = "MyNewTitle";
+//        ContentValues values = new ContentValues();
+//        values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+
+// Which row to update, based on the title
+//        String selection = FeedEntry.COLUMN_NAME_TITLE + " LIKE ?";
+//        String[] selectionArgs = { "MyOldTitle" };
+
+        int count = db.update(
+                TABLE_NAME,
+                contentValues,
+                selection,
+                selectionArgs);
+        return count;
     }
 }
