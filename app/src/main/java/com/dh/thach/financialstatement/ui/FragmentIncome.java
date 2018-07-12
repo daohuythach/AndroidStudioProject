@@ -24,9 +24,10 @@ public class FragmentIncome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        View view = inflater.inflate(R.layout.fragment_liabilities,container,false);
+        TextView tv = view.findViewById(R.id.tv_textTile);
+        tv.setText("INCOME");
+        return view;
     }
 
 }
