@@ -1,5 +1,6 @@
 package com.dh.thach.financialstatement.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,16 +14,18 @@ import java.util.ArrayList;
 
 public class FinancialRecyclerAdapter extends android.support.v7.widget.RecyclerView.Adapter {
     private ArrayList<String> mDataSet;
+    //private Context mContext;
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextView;
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.item_text_view);
+            mTextView = itemView.findViewById(R.id.tv_item);
         }
     }
 
     public FinancialRecyclerAdapter(ArrayList<String> myDataSet){
         this.mDataSet = myDataSet;
+        //this.mContext = context;
     }
     public void addItemInPosition(int position, String value){
         mDataSet.add(position,value);

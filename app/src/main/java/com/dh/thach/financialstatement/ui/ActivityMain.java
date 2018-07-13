@@ -16,6 +16,8 @@ public class ActivityMain extends AppCompatActivity {
     private ViewPager viewPager;
     private FragmentIncome fragmentIncome;
     private LiabilitiesFragment liabilitiesFragment;
+    private FragmentExpenses fragmentExpenses;
+    private FragmentAssets fragmentAssets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class ActivityMain extends AppCompatActivity {
 ////        startActivity(intent);
          fragmentIncome = new FragmentIncome();
          liabilitiesFragment = new LiabilitiesFragment();
+         fragmentExpenses = new FragmentExpenses();
+         fragmentAssets = new FragmentAssets();
 //        fragmentTransaction.add(R.id.fragment_container, fragmentIncome);
 //        fragmentTransaction.commit();
 
@@ -39,8 +43,10 @@ public class ActivityMain extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(fragmentIncome, "Hello");
-        adapter.addFragment(liabilitiesFragment, "World");
+        adapter.addFragment(fragmentIncome, "Income");
+        adapter.addFragment(liabilitiesFragment, "Liabilities");
+        adapter.addFragment(fragmentExpenses, "Expenses");
+        adapter.addFragment(fragmentAssets, "Assets");
         viewPager.setAdapter(adapter);
     }
 
@@ -48,5 +54,7 @@ public class ActivityMain extends AppCompatActivity {
     {
         tabLayout.getTabAt(0).setIcon(R.drawable.cricle_green);
         tabLayout.getTabAt(1).setIcon(R.drawable.cricle_red);
+        tabLayout.getTabAt(2).setIcon(R.drawable.cricle_green);
+        tabLayout.getTabAt(3).setIcon(R.drawable.cricle_red);
     }
 }
